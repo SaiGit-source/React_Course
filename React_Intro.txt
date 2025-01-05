@@ -1,0 +1,43 @@
+What's React?
+It's a library for web and native user interfaces
+
+Library for building user interfaces
+
+JavaScript library for building user interfaces
+
+why would you use it?
+Smoother transition, lightweight, easy-quick page loading,  -> because it uses JavaScript in the browser to update page and User interface without reloading the page.
+
+JavaScript gets the movies data in the background without reloading or leaving the page then updates the screen with the movies data leading to smoother transition between pages
+
+Why not just JavaScript?
+writing complex JavaScript code quickly becomes cumbersome
+complex JavaScript code quickly becomes error-prone
+complex JavaScript code often is hard to maintain or edit
+React offers a simpler mental model and easier way of building complex web user interfaces and applications
+
+
+Lets say we have index.html file (contains HTML elements for displaying the majority of the page) and index.js (responsible for getting hold of these buttons, for adding click listeners responsible for getting hold of the buttons, click listeners to the buttons), App.js will have all HTML code for React as opposed to vanilla JavaScript code (index.html). App.js defines different states for the components like btn has a state "active"
+
+https://codesandbox.io/p/sandbox/react-vs-vanilla-demo-uc08fv
+
+
+React = Declarative UI programming
+
+with React, you define the target UI state(s) - not the steps to get there - React will figure out & perform the necessary steps. we define only target conditions or states when they should change
+
+Vanilla JS code: we are writing imperative JS code not declarative. difficult to update code, say to add a new button, complex
+
+Updated Page: added a new button
+https://codesandbox.io/p/sandbox/first-react-app-start-forked-jtjzw7
+
+To start a new project: type react.new : https://codesandbox.io/p/sandbox/react-new?file=%2Fsrc%2FApp.js&utm_source=dotnew  it will open a new React project automatically (in-browser development environment)
+
+ 
+
+
+
+
+
+
+

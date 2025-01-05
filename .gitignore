@@ -1,0 +1,58 @@
+node_modules/
+/.pnp
+.pnp.js
+
+# Testing
+/coverage
+
+# Production
+/build
+
+# Misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Editor
+.idea
+.vscode
+*.swp
+*.swo
+*.bak
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Optional npm cache
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Jest
+/jest.config.js
+/jest.setup.js
+
+# TypeScript
+*.tsbuildinfo
+
+# Ignore lock files
+package-lock.json
+yarn.lock
+
+# Firebase
+.firebase
+
+# Other
+*.log
+*.bak
+*.tmp
+*.log.*
+
+# Ignore build artifacts
+build/
+dist/

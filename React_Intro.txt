@@ -34,7 +34,9 @@ https://codesandbox.io/p/sandbox/first-react-app-start-forked-jtjzw7
 To start a new project: type react.new : https://codesandbox.io/p/sandbox/react-new?file=%2Fsrc%2FApp.js&utm_source=dotnew  it will open a new React project automatically (in-browser development environment)
 
  
+package.json -> it has dependencies like react and react-dom -> it is used by NodeJS for managing dependencies in the project 
 
+Website we are building typically have different states: if we have a dynamic website -> a website where things change after it was initially loaded.. even in the Blog App, we want to change Text after the website is rendered. that means the website has different states -> changing texts
 
 
 

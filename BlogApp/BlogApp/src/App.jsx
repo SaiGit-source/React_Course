@@ -46,11 +46,32 @@ function App() {
 */
 
 import PostList from "./components/PostList";
+import MainHeader from "./components/MainHeader";
+import {useState} from 'react';
+
 function App() {
+  const [modalIsVisible, setModalIsVisible]=useState(true);
+
+    function showModalHandler(){
+      setModalIsVisible(true);
+    }
+    // it is for closing the NewPost form when we click the backdrop
+    // const [modalIsVisible, setModalIsVisible]=useState(true);
+
+    function hideModalHandler(){
+      setModalIsVisible(false);
+  }
+
   return (
+    <>
+    <MainHeader onCreatePost={showModalHandler}></MainHeader>
     <main>
-      <PostList></PostList>
+      <PostList 
+      isPosting={modalIsVisible} 
+      onStopPosting={hideModalHandler}> 
+      </PostList>
     </main>
+    </>
   )
 }
 export default App;

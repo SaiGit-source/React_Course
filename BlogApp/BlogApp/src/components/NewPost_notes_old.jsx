@@ -14,63 +14,33 @@ import { useState } from 'react';
 // you must execute within React compoent functions
 // when you execute useState, you register a new state slice/value
 // you get the latest JSX snapshot from function and if it deviates from the previous, React will update part in UI that needs updating
-function NewPost({onCancel, onAddPost}) {
+function NewPost() {
     // let enteredBody=''; // the problem is, when this code is loaded once then React doesn't know about the updated value for this variable. so we need a special React feature 
-    // const [enteredBody, setEnteredBody] = useState('');
+    const [enteredBody, setEnteredBody] = useState('');
     //const stateData = useState('');
     //stateData[0] // current value
     //stateData[1] // state updating function
     // how to get useState from NewPost to PostList?
     
-/*
+
     function changeBodyHandler(event){
         console.log(event.target.value);
         // enteredBody=event.target.value; this doesn't work thats why we need State
         setEnteredBody(event.target.value);
     }
-*/
-        const [enteredBody, setEnteredBody] = useState('');
-
-        function bodyChangeHandler(event){
-            setEnteredBody(event.target.value);
-        } 
-        // we are passing bodyChangeHandler function as a value to props of NewPost component
-
-        const [enteredAuthor, setEnteredAuthor] = useState('');
-
-        function authorChangeHandler(event){
-            setEnteredAuthor(event.target.value);
-        } 
-
-        function submitHandler(event){
-            event.preventDefault(); // this prevents browser default event of generating and sending HTTP request because we dont have a backend   
-            const postData = {
-                body: enteredBody,
-                author: enteredAuthor
-            };
-            console.log(postData);
-            onAddPost(postData);
-            onCancel();
-        }
 
     return (
-        <form className={classes.form} onSubmit={submitHandler}>
+        <form className={classes.form}>
             <p>
                 <label htmlFor="body">Text</label>
-                <textarea id="body" required rows={3} onChange={bodyChangeHandler}/>
+                <textarea id="body" required rows={3} onChange={changeBodyHandler}/>
             </p>
-            {/* <p>{enteredBody}</p> */}
+            <p>{enteredBody}</p>
             <p>
                 <label htmlFor="name">Your name</label>
-                <input type="text" id="name" required onChange={authorChangeHandler}/>
-            </p>
-            {/* we want to add a submit button to add post */}
-            <p className={classes.actions}>
-                <button type="button" onClick={onCancel}>Cancel</button>
-                <button>Submit</button>
+                <input type="text" id="name" required />
             </p>
         </form>
-
     )
 
 }

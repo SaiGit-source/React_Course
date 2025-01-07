@@ -1,4 +1,5 @@
 // to start project: npm install, npm run dev
+// React builds a single page application (only one HTML file)
 /*
 function App() {
   return <h1>Hello World!</h1>;

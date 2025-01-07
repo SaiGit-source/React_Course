@@ -38,6 +38,28 @@ package.json -> it has dependencies like react and react-dom -> it is used by No
 
 Website we are building typically have different states: if we have a dynamic website -> a website where things change after it was initially loaded.. even in the Blog App, we want to change Text after the website is rendered. that means the website has different states -> changing texts
 
+useEffect() is for preventing infinite loops of sending HTTP requests when page reloads. it will only reload once when something outside of useEffect function changes
+
+React builds a single page application (only one HTML file) -> Routing -> listening to URL changes while App is running, evaluating URL when first loading, loading different components for different paths that are encoded in the URL. npm install react-router-dom. it will enable to load different components for different URL paths
+
+Outlet -> we need it to render nested route contents
+
+Data fetching via loader: () => {} whenever the router is being called, this loader function gets executed. works well for slow backend. better user experience
+
+Submitting data with action() -> replace form with Form, then when the form is submitted, the function associated with action will get automatically executed
+
+we can say return redirect('/'); to redirect to a different path/route
+
+Dynamic route {path: '/:id'} with a dynamic path parameter id
+
+
+
+
+
+
+
+
+
 
 
 

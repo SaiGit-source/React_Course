@@ -1,0 +1,45 @@
+React Essentials:
+
+Components, Props, JSX, State
+
+Components are UI reusable building blocks, which you can create and combine to create the overall user interface
+
+Components is the one concept every React app no matter its complexity will use
+
+UI is a combination of components
+
+React component -> HTML, CSS, JavaScript
+
+This allows users to split up complex User interfaces into smaller more manageable parts, which are potentially reused in different parts of UI
+
+thats why Components approach is powerful and popular
+
+Advantage of Components: reusing code and we only need to make changes only in one place. related code can be stored together. separation by logic: different components handle different data & logic 
+
+without Components, we will have HTML and JavaScript files, to make changes we got to switch back between HTML and JavaScript files
+
+
+in index.html -> we refer to -> src="/src/index.jsx" -> in index.jsx: we have ReactDOM.createRoot(entryPoint).render(<App />); and this file App.jsx contains markup for the content 
+
+App.jsx: it has both HTML and JavaScript code (JavaScript Syntax Extension). Extension allows developers to describe and create HTML elements by writing HTML markup code inside of JavaScript code. This jsx code is not supported by the browsers -> instead this code is transformed behind the scenes before it reaches the browsers
+
+Component functions must follow two rules: function name must startwith a uppercase character, function must return a 'renderable' value/content. this is how components are created in React
+
+
+if you right-click the webpage and inspect source-code: view page-source: there is no header or any other website content no image no title etc. this loaded Javascript file (index.jsx) -> is the transformed React code we wrote 
+
+ReactDOM.createRoot(entryPoint).render(<App />) -> render method is called on an object thats created with another method createRoot(). createRoot() takes an existing HTML element as an input, which is not created by React, part of index.html file
+
+App component is the root component (first component rendered by React) and it can contain any number of nested components : Header, Main etc. A structure of components rendered by React
+React analyses the tree of components then it combines all of the JSX code from all the components to generate the overall DOM
+
+Custom components must start with uppercase character <Header> this tells React that it is not an inbuilt component like <header>
+
+
+
+
+
+
+
+
+

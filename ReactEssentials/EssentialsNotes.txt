@@ -35,6 +35,11 @@ React analyses the tree of components then it combines all of the JSX code from 
 
 Custom components must start with uppercase character <Header> this tells React that it is not an inbuilt component like <header>
 
+Props: we want to build and reuse different React components with different input data. that's where we have Props. being able to pass data into components and use that data. 
+
+we separate components from App.js into separate files for example: move <Header> component outside App.js
+
+similarly we could separate CSS contents as well. so if we remove Header.CSS contents from index.css then React doesn't know automatically
 
 
 

@@ -1,20 +1,59 @@
+import reactImg from './assets/react-core-concepts.png';
 import componentsImg from './assets/components.png';
 import { CORE_CONCEPTS } from './data'; // for named exports we use {}
-import Header from './components/Header/Header';
-import CoreConcept from './components/CoreConcepts';
-import TabButton from './components/TabButton';
+
+const reactDescriptions = ['Fundamental', 'Crucial', 'Core'];
+
+function genRandomInt(max){
+  return Math.floor(Math.random() * (max+1));
+}
+
+// our first custom component
+function Header() {
+  const desc = reactDescriptions[genRandomInt(2)];
+  return (
+    <header>
+    {/*<img src="src/assets/react-core-concepts.png" alt="Stylized atom" />*/}
+    <img src={reactImg} alt="Stylized atom" />
+    <h1>React Essentials</h1>
+    <p>
+      {desc} React concepts you will need for almost any app you are
+      going to build!
+    </p>
+  </header>
+  )
+}
+// instead of calling the function, we use it like an HTML element (<Header></Header>)
+// Header();
+
+// we want to have different data everytime this CoreConcept component gets used: Props
+/*
+function CoreConcept(props) {
+  return (
+    <li>
+        <img src={props.image} alt={props.title}></img>
+        <h3>{props.title}</h3>
+        <p>{props.description}</p>
+    </li>
+  );
+}
+*/
+
+// Object destructuring
+function CoreConcept({image, title, description}) {
+  return (
+    <li>
+        <img src={image} alt={title}></img>
+        <h3>{title}</h3>
+        <p>{description}</p>
+    </li>
+  );
+}
 
 // note in index.css, we have core-concepts id selector
 // <CoreConcept title></CoreConcept>: we can pass in different data each time we use these components
 // shorter alternative {...CORE_CONCEPTS[0]}
 function App() {
-  // for the TabButton click
-  function handleClick(clickedButton){
-    // clickedButton should be a string => 'components', 'jsx', 'props', 'state'
-    // then if-else to return Dynamic content
-    console.log(clickedButton)
-  }
-
   return (
     <div>
       <Header></Header>
@@ -27,17 +66,6 @@ function App() {
           <CoreConcept {...CORE_CONCEPTS[2]}> </CoreConcept>
           <CoreConcept {...CORE_CONCEPTS[3]}> </CoreConcept>        
         </ul>
-        </section>
-        <section id="examples">
-        <h2>Examples</h2>
-        <menu>
-          {/* Anonymous arrow function ()=> passing custom parameter / value to whenClicked */}
-          <TabButton whenClicked={() => handleClick('components')}>Components</TabButton>
-          <TabButton whenClicked={() => handleClick('jsx')}>JSX</TabButton>
-          <TabButton whenClicked={() => handleClick('props')}>Props</TabButton>
-          <TabButton whenClicked={() => handleClick('state')}>State</TabButton>
-        </menu>
-        Dynamic Content
         </section>
       </main>
     </div>

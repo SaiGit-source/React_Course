@@ -1,0 +1,34 @@
+DeepDive:
+
+Technically we dont need JSX to build React projects
+
+<div id="content">
+	<p>Hello World!</p>
+</div>
+
+||
+
+React.createElement(
+'div'
+{ id: 'content' },
+React.createElement(
+	'p',
+	null,
+	'Hello World'
+	)
+);
+
+createElement is a non-JSX approach
+
+
+we cannot return two values in both function and JSX element
+
+from the previous project, we extend in deep dive
+
+the issue was the header was reloaded whenever we clicked the TabButtons and thats not right
+so we split the tabSection into another component called 'Examples'. Splitting into multiple components solved this issue
+
+now clicking on the TabButtons doesn't change the header text: "Crucial React concepts you will need for almost any app you are going to build!"
+the reason it doesn't changes because only this 'Examples' component is reloaded when state changes and not the 'App' component (along with 'Header' component), unlike earlier
+
+

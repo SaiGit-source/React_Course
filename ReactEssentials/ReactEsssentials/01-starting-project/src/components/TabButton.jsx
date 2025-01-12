@@ -4,10 +4,11 @@ export default function TabButton(props) {
     // i can write onClick prop anywhere button, li etc
     // onClick={handleClick} -> dont use ()
     // we are moving handleClick() function outside because the function displays different content based on the click event
+    // className='active' for dynamic css styling
 
     return (          
         <li>
-            <button onClick={props.whenClicked}>{props.children}</button>
+            <button className={props.isSelected ? "active": undefined} onClick={props.whenClicked}>{props.children}</button>
         </li>
     )
 }

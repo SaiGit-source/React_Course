@@ -1,12 +1,6 @@
 
-// Array of Arrays
-const initialGameBoard = [
-    [null, null, null],
-    [null, null, null],
-    [null, null, null]
-]
 
-export default function GameBoard({onSelectCell, activePlayerSymbol, turns}){
+export default function GameBoard({onSelectCell, board}){
 
     /* we are not using gameGoard state because it doesn't keep track of the order the buttons were clicked
     const [gameBoard, setGameBoard] = useState(initialGameBoard);
@@ -27,16 +21,7 @@ export default function GameBoard({onSelectCell, activePlayerSymbol, turns}){
         })
         onSelectCell(); // this comes from App.jsx
     }*/
-
-    let gameBoard = initialGameBoard;
-    // populate gameBoard with turns array
-    for (const turn of turns){
-        const { cell, player } = turn // we get the keys out
-        const {row, col } = cell
-
-        gameBoard[row][col] = player // player has the symbol
-
-    }    
+    let gameBoard = board
 
     return (
         <ol id="game-board">
@@ -46,7 +31,9 @@ export default function GameBoard({onSelectCell, activePlayerSymbol, turns}){
                     {row.map((playerSymbol, colIndex) => (
                     <li key={colIndex}>
                         {/*<button onClick={() => handleSelectCell(rowIndex, colIndex)}>*/}
-                        <button onClick={() => onSelectCell(rowIndex, colIndex)}>
+                        {/* disabled to prevent multiple clicking of the same button. if it is not null, then we disable */}
+                        <button onClick={() => onSelectCell(rowIndex, colIndex)} 
+                                disabled={playerSymbol!==null}>
                             {playerSymbol}
                         </button>
                     </li>))

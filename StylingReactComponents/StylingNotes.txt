@@ -3,6 +3,8 @@ Styling:
 Styling with vanilla CSS -> Advantage: CSS code is decoupled from JSX code, we can write our own CSS, CSS code can be written by another developer in parallel
 Disadvantage: You need to know CSS as well, CSS rules are not scoped to components therefore we could have Styling conflicts 
 
+Inline Styles: Advantages: Quick & easy to add to JSX, Styles only affect the element to which you add them, Dynamic conditional styling is simple. Disadvantage: you need to know CSS, You need to style every element individually, No separation between JSX and CSS. All CSS code lives in JSX file
+
 Scoping styles with CSS modules
 CSS-in-JS styling with "Styled components"
 Styling with Tailwind CSS

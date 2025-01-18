@@ -24,15 +24,23 @@ export default function AuthInputs() {
     <div id="auth-inputs">
       <div className="controls">
         <p>
-          <label>Email</label>
+          <label className={`label ${emailNotValid ? 'invalid' : ''}`}>Email</label>
+          {/* label.invalid from index.css when input is invalid
+          if emailNotValid we inject 'invalid' string otherwise '' */}
           <input
             type="email"
+           /*  style={{
+              backgroundColor: emailNotValid ? '#fed2d2' : '#d1d5db'
+            }} */
+            // inline styles: from input.invalid (index.css)
+            // default backgroundColor is from controls input
+            // Dynamic and conditional styling using inline styling
             className={emailNotValid ? 'invalid' : undefined}
             onChange={(event) => handleInputChange('email', event.target.value)}
           />
         </p>
         <p>
-          <label>Password</label>
+          <label className={`label ${emailNotValid ? 'invalid' : ''}`}>Password</label>
           <input
             type="password"
             className={passwordNotValid ? 'invalid' : undefined}

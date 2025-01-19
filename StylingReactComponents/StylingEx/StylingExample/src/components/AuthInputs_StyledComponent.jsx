@@ -1,7 +1,5 @@
 import { useState } from 'react';
 import {styled} from 'styled-components';
-import Button from './Button';
-import Input from './Input';
 
 const ControlContainer = styled.div`
   display: flex;
@@ -20,7 +18,7 @@ const Label = styled.label`
   text-transform: uppercase;
   color:${({$invalid})=> $invalid ? '#f87171' : '#6b7280'};
 `;
-/*
+
 const Input = styled.input`
   width: 100%;
   padding: 0.75rem 1rem;
@@ -30,7 +28,6 @@ const Input = styled.input`
   border: 1px solid ${({$invalid}) => $invalid ? '#f73f3f' : 'transparent'};
   border-radius: 0.25rem;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);`
-  */
 {/* copy from control label */}
 
 export default function AuthInputs() {
@@ -54,22 +51,37 @@ export default function AuthInputs() {
   const passwordNotValid = submitted && enteredPassword.trim().length < 6;
 
   return (
-    <div id="auth-inputs" className="w-full max-w-sm p-8 mx-auto rounded shadow-md bg-gradient-to-b from-stone-700 to-stone-800">
+    <div id="auth-inputs">
       {/*<div className="controls">*/}
       {/* instead of className we are using ControlContainer */}
-        <div className="flex flex-col gap-2 mb-6">
+        <ControlContainer>
         <p className="paragraph">
+          <Label $invalid={emailNotValid}>Email</Label>
+          {/*<label className={`label ${emailNotValid ? 'invalid' : ''}`}>Email</label>*/}
+          {/* label.invalid from index.css when input is invalid
+          if emailNotValid we inject 'invalid' string otherwise '' */}
+          {/*<input */}
           <Input
-            label="Email"
-            invalid={emailNotValid}
+            $invalid={emailNotValid}
             type="email"
+           /*  style={{
+              backgroundColor: emailNotValid ? '#fed2d2' : '#d1d5db'
+            }} */
+            // inline styles: from input.invalid (index.css)
+            // default backgroundColor is from controls input
+            // Dynamic and conditional styling using inline styling
+            // className={emailNotValid ? 'invalid' : undefined}
             onChange={(event) => handleInputChange('email', event.target.value)}
           />
         </p>
         <p>
+          {/* Styled compoents */}
+          {/* <Label className={`label ${passwordNotValid ? 'invalid' : ''}`}>Password</Label> */}
+          <Label $invalid={passwordNotValid}>Password</Label>
+          {/*<label className={`label ${passwordNotValid ? 'invalid' : ''}`}>Password</label>*/}
+          {/*<input*/}
           <Input
-            label="Password"
-            invalid={passwordNotValid}
+            $invalid={passwordNotValid}
             type="password"
             // className={passwordNotValid ? 'invalid' : undefined}
             onChange={(event) =>
@@ -77,14 +89,13 @@ export default function AuthInputs() {
             }
           />
         </p>
-        </div>
+        </ControlContainer>
       {/*</div>*/}
-      <div className="flex justify-end gap-4">
-        <button type="button" className="text-amber-400 hover:text-amber-500">
+      <div className="actions">
+        <button type="button" className="text-button">
           Create a new account
         </button>
-        <Button onClick={handleLogin}>Sign In</Button>
-        {/*<button className='button' onClick={handleLogin}>Sign In</button>*/}
+        <button className='button' onClick={handleLogin}>Sign In</button>
       </div>
     </div>
   );

@@ -5,9 +5,24 @@ Disadvantage: You need to know CSS as well, CSS rules are not scoped to componen
 
 Inline Styles: Advantages: Quick & easy to add to JSX, Styles only affect the element to which you add them, Dynamic conditional styling is simple. Disadvantage: you need to know CSS, You need to style every element individually, No separation between JSX and CSS. All CSS code lives in JSX file
 
-Scoping styles with CSS modules
-CSS-in-JS styling with "Styled components"
-Styling with Tailwind CSS
+Scoping styles with CSS modules -> vanilla CSS with file-specific scoping. CSS modules is an approach, implemented and enforced by the build process used in React project. Build tools will transform CSS classNames only to classNames that are guaranteed to be unique per file. if you rename Header.css into Header.module.css, the vite processes it slightly differently. Advantage for CSS module: CSS code is decoupled from JSX code, write CSS code, CSS can be written by another person, CSS classes are scoped to the component (files), which import them only -> no CSS class name clashes or conflicts. Disadvantages: you need to know CSS, you may end up with many relatively small (module) CSS files in your project, 
+
+CSS-in-JS styling with "Styled components" -> npm install styled-components -> or in codesandbox add dependency (styled-components). Advantages: Relatively quick and easy to add, continue thinking in React (configurable style functions), Styles are automatically scoped (no CSS clashes). Disadvantages: you need to know CSS, No clear separation of React and CSS code, you end up with relatively small "wrapper" components
+ 
+const ControlContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+`
+
+Styling with Tailwind CSS -> framework that can be used with any project, not necessarily React. it's all about adding tiny utility CSS classes to HTML elements to apply style step by step. 
+https://tailwindcss.com/docs/guides/vite
+we dont need to know CSS for Tailwind CSS
+npm install -D tailwindcss postcss autoprefixer
+npx tailwindcss init -p
+Advantage: we dont need to know CSS, Rapid development, No style clashes, highly configurable and extensible. Disadvantages: Relatively long className values, any style changes require editing JSX, tend to end up with many relatively small "wrapper" components 
+
 Static and Dynamic (conditional) styling
 
 

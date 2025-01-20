@@ -1,0 +1,10 @@
+Debugging:
+
+How to efficiently debug, find and dix errors in React app?
+
+making sense of React error messages
+finding logical errors via the browser devTools and debugger
+enabling React's strict mode
+React DevTools for application analysis
+
+

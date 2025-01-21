@@ -1,0 +1,19 @@
+Advanced DOM access & value management
+it can help to solve certain problems that are almost impossible to solve
+
+Accessing DOM elements with Refs
+
+Managing values with Refs (when it shouldn't be state)
+
+Exposing API functions from components
+
+Detaching DOM rendering from JSX structure with Portals
+
+Demo project is kind of a game where website vsitors can start different timer challenges with a goal of estimating when time is up and stopping timer early enough before it expires
+
+it can be built with Refs and Portals, components, states etc
+
+Note: whenever Ref changes, component function doesn't re-execute unlike the State changes
+
+State: causes component to be re-evaluated or re-executed when changed, Should be used for values that are directly reflected in the UI, Should not be used for "behind the scenes" values that have no direct UI impact
+Refs: Do not cause component re-evaluation when changed, can be used to gain direct DOM element access (-> great for reading values or accessing certain browser APIs), 

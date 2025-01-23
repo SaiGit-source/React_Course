@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-
+import ResultModal from './ResultModal';
 //let timer; // we dont want to recreate this variable when the component function re-executes when State changes. so we put it outside component function. however, variable is not a solution
 
 export default function TimerChallenge({title, targetTime}) {
@@ -7,10 +7,15 @@ export default function TimerChallenge({title, targetTime}) {
   const [timerStarted, setTimerStarted] = useState(false)
 
   const timer = useRef() // every component instance will get its own timer ref, which will never be overwritten, cleared or reset unlike variable
-  
+  const dialogRef = useRef() // we are using this Ref to open the dialog programatically
+
   function handleStart() {
     setTimerStarted(true)
-    timer.current = setTimeout(()=>{setTimerExpired(true)}, targetTime * 1000) // milliseconds
+    timer.current = setTimeout(
+      ()=>{setTimerExpired(true);
+        dialogRef.current.showModal(); // we are opening the modal only when times-out
+      }, 
+      targetTime * 1000) // milliseconds
   }
 
   function handleStop() {
@@ -19,9 +24,12 @@ export default function TimerChallenge({title, targetTime}) {
   }
 
     return (
+      <>
+      <ResultModal ref={dialogRef} targetTime={targetTime} result="lost">
+      </ResultModal>
         <section className="challenge">
             <h2>{title}</h2>
-            {timerExpired && <p>You Lost!</p>}
+            {/*{timerExpired && <p>You Lost!</p>}*/}
             <p className="challenge-time">
                 {targetTime} second{targetTime>1 ? 's' : ''}
             </p>
@@ -34,5 +42,6 @@ export default function TimerChallenge({title, targetTime}) {
                 {timerStarted ? 'Time is running...' : 'Timer inactive'}
             </p>
         </section>
+        </>
     )
 }

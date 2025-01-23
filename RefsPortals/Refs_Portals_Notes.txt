@@ -17,3 +17,5 @@ Note: whenever Ref changes, component function doesn't re-execute unlike the Sta
 
 State: causes component to be re-evaluated or re-executed when changed, Should be used for values that are directly reflected in the UI, Should not be used for "behind the scenes" values that have no direct UI impact
 Refs: Do not cause component re-evaluation when changed, can be used to gain direct DOM element access (-> great for reading values or accessing certain browser APIs), 
+
+Portals: deeply nested elements could be hidden by other elements above it. the function of Portal is to teleport HTML code into a different place in the DOM. we can find the current position of say 'ResultModal' in the DOM by right-clicking and inspecting. we get modal id from index.html, where this HTML should be teleported to. The function used to teleport HTML code in the DOM is 'createPortal'

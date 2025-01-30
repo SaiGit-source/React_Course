@@ -9,9 +9,38 @@ function App() {
   const [projectState, setProjectState] = useState(
     {
       selectedProjectId: undefined,
-      projects: []
+      projects: [],
+      tasks: []
     }
   )
+
+  function handleAddTask(taskText){
+    setProjectState(prevState => {
+      const taskId = Math.random()
+      const newTask ={
+        text: taskText,
+        projectId: prevState.selectedProjectId,
+        id: taskId
+      }
+      return {
+        ...prevState,
+        tasks: [newTask, ...prevState.tasks],
+      }
+    })
+
+  }
+
+  // console.log(projectState)
+
+  function handleDeleteTask(id){
+    setProjectState(prevState => {
+      return {
+        ...prevState,
+        tasks: prevState.tasks.filter((task)=>task.id!==id)
+      }
+    })      
+
+  }
 
   // selectedProjectId: null null means we are adding a new project, undefined means we are doing nothing
   // ...prevState by spreading we are getting all the existing key-value pairs
@@ -81,7 +110,10 @@ function App() {
   const selectedProject = projectState.projects.find(project => project.id===projectState.selectedProjectId )
 
   let content = <SelectedProject project={selectedProject}
-                                 onDelete={handleDeleteProject} ></SelectedProject>;
+                                 onDelete={handleDeleteProject}
+                                 onAddTask={handleAddTask}
+                                 onDeleteTask={handleDeleteTask}
+                                 tasks={projectState.tasks}></SelectedProject>;
 
   if (projectState.selectedProjectId===null){
     content = <NewProject onAdd={handleAddProject} onCancel={handleCancelAddProject}></NewProject>
@@ -96,7 +128,8 @@ function App() {
       <ProjectSidebar 
           onStartAddingProject={handleStartAddingProject} 
           projects={projectState.projects}
-          onSelectProject={handleSelectProject}>  
+          onSelectProject={handleSelectProject}
+          selectedProjectId={projectState.selectedProjectId}>  
       </ProjectSidebar>
       {content}
     </main>

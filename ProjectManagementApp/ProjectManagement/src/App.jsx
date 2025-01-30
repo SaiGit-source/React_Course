@@ -2,6 +2,7 @@ import { useState } from "react";
 import NewProject from "./components/NewProject";
 import NoProjectSelected from "./components/NoProjectSelected";
 import ProjectSidebar from "./components/ProjectsSidebar";
+import SelectedProject from "./components/SelectedProject";
 
 // my-8 is margin 2 rem
 function App() {
@@ -24,6 +25,18 @@ function App() {
       }
     })
   }
+
+  // the idea here is to we are setting only the selectedProjectId to Id instead of null 
+  // then this id could be matched in the next map() or for loop
+  function handleSelectProject(id){
+    setProjectState(prevState => {
+      return {
+        ...prevState,
+        selectedProjectId: id,
+      }
+    })
+  }
+
 
   // projects: [...prevState.projects, ] we are adding newProject with existing projects in an array
   function handleAddProject(projectData){
@@ -53,8 +66,22 @@ function App() {
   
 
 //  console.log(projectState)
+// project.id!==prevState.selectedProjectId) i am keeping only the items that's not equal to ID to be set to delete  
+  function handleDeleteProject(){
+    setProjectState(prevState => {
+      return {
+        ...prevState,
+        selectedProjectId: undefined,
+        project: prevState.projects.filter((project)=>project.id!==prevState.selectedProjectId)
+      }
+    })      
 
-  let content;
+  }
+  // we are finding an element in an array by ID
+  const selectedProject = projectState.projects.find(project => project.id===projectState.selectedProjectId )
+
+  let content = <SelectedProject project={selectedProject}
+                                 onDelete={handleDeleteProject} ></SelectedProject>;
 
   if (projectState.selectedProjectId===null){
     content = <NewProject onAdd={handleAddProject} onCancel={handleCancelAddProject}></NewProject>
@@ -68,7 +95,9 @@ function App() {
     <main className="h-screen my-8 flex gap-8"> 
       <ProjectSidebar 
           onStartAddingProject={handleStartAddingProject} 
-          projects={projectState.projects}></ProjectSidebar>
+          projects={projectState.projects}
+          onSelectProject={handleSelectProject}>  
+      </ProjectSidebar>
       {content}
     </main>
     </>

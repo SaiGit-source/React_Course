@@ -1,0 +1,11 @@
+Advanced State Management:
+
+in complex applications, managing states can become tricky and can lead to problems like prop drilling
+
+Problem of shared state: Prop Drilling
+How Component composition could help us solve these problems
+Sharing state with Context API feature of React. how to manage state better if shared across multiple components
+Another React hook -> managing complex state with Reducers
+sometimes we want to use 'useReducers' hook instead of 'useState' hook
+
+ 

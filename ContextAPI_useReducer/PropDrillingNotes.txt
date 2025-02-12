@@ -1,0 +1,19 @@
+Prop drilling:
+
+Most React Apps consist of multiple components and those components are structured in such a component tree, example App component could render two components : Shop and Header then those components in turn render other child nested components like Product, CartModel and so on. 
+
+how to manage state?
+example, cartState for online shopping website and that state needs to be lifted up. cartState is used and displayed in one component and might get updated in another component(when Product is added). so we need to manage the cartState in some high level component that has access to all those interacting components then we got share the state with props then update as well with the help of props. that means we got to pass the shared state variable through multiple layers of components. that's called as Prop drilling. Passing shared data through multiple component layers even though those components directly dont require that data they are only passing into child components. this is a problem, makes components less reusable because they (shared state) always must be used in a place (component) where they can get that shared data and a lot of unnecessary extra boiler plate code (because we got to accept and de-structure the props in order to forward to another component).  
+
+Solutions:
+Component composition can solve Prop drilling in certain situations but in most cases, we need the second solution: useReducers() hook
+
+React's Context API is there to share data across components and across component layers. you create a context value then provide that value that you wrap that context around multiple components, possibly all components of your app. we can connect React state to that Context value, which is provided to the entire application then you can get rid of all the props and prop drilling. since that context value linked to the shared state is provided to all components in the application. the components that do need access to the shared state can directly reach out to that context and therefore to that state. a powerful solution for Prop drilling
+
+useContext hook is to consume or access some context
+
+
+
+
+
+

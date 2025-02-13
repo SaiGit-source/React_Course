@@ -4,10 +4,12 @@ import { CartContext } from "../store/shopping-cart-context";
 // useContext hook is to consume or access some context
 // use hook is bit more flexble than useContext. for example it can be used within an if block. only available in React v >= 19
 
-export default function Cart({ onUpdateItemQuantity }) {
+export default function Cart() {
+
   const cartCtx = useContext(CartContext);
   // or const {items} = useContext(CartContext); // and change cartCtx.items to items
-
+  // alternative to get access to context:
+  // CartContext.Consumer
   const totalPrice = cartCtx.items.reduce(
     (acc, item) => acc + item.price * item.quantity,
     0
@@ -29,11 +31,11 @@ export default function Cart({ onUpdateItemQuantity }) {
                   <span> ({formattedPrice})</span>
                 </div>
                 <div className="cart-item-actions">
-                  <button onClick={() => onUpdateItemQuantity(item.id, -1)}>
+                  <button onClick={() => cartCtx.updateItemQuantity(item.id, -1)}>
                     -
                   </button>
                   <span>{item.quantity}</span>
-                  <button onClick={() => onUpdateItemQuantity(item.id, 1)}>
+                  <button onClick={() => cartCtx.updateItemQuantity(item.id, 1)}>
                     +
                   </button>
                 </div>

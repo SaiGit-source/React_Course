@@ -10,7 +10,8 @@ Component composition can solve Prop drilling in certain situations but in most 
 
 React's Context API is there to share data across components and across component layers. you create a context value then provide that value that you wrap that context around multiple components, possibly all components of your app. we can connect React state to that Context value, which is provided to the entire application then you can get rid of all the props and prop drilling. since that context value linked to the shared state is provided to all components in the application. the components that do need access to the shared state can directly reach out to that context and therefore to that state. a powerful solution for Prop drilling
 
-useContext hook is to consume or access some context
+
+if a state gets updated, the component function gets re-executed by React, such situations useContext hook also gets re-executed. the component function should be re-executed otherwise, UI wont be updated 
 
 
 

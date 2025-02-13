@@ -67,13 +67,20 @@ function App() {
     });
   }
 
+  const ctxValue = {
+    items : shoppingCart.items, // we are making the state variable and update cart function available to components that require them 
+    addItemToCart: handleAddItemToCart,
+    updateItemQuantity: handleUpdateCartItemQuantity
+  }; // this object is the value of context
+
+
   return (
     <>
-    <CartContext value={{items: []}}>
-      <Header
-        cart={shoppingCart}
-        onUpdateCartItemQuantity={handleUpdateCartItemQuantity}
-      />
+
+    {/* <CartContext.Consumer></CartContext.Consumer> Consumer is used to wrap jsx code
+    {(cartCtx) => { return (entire content goes in here) }} */}
+    <CartContext value={ctxValue}>
+      <Header/>
       <Shop>
         {/* Component composition to get rid off Prop drilling problem */}
       {DUMMY_PRODUCTS.map((product) => (

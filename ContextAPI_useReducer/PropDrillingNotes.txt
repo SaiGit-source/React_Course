@@ -14,6 +14,20 @@ React's Context API is there to share data across components and across componen
 if a state gets updated, the component function gets re-executed by React, such situations useContext hook also gets re-executed. the component function should be re-executed otherwise, UI wont be updated 
 
 
+useReducer() -> state management hook instead of useState()
+Reducer: A function that reduces one or more complex values to a simpler one
+example, [5,10,100] -> Reducer function() -> 115
+
+  const totalPrice = cartCtx.items.reduce(
+    (acc, item) => acc + item.price * item.quantity,
+    0
+  );
+we reduce or update cart total amount with item.price * item.quantity
+
+
+
+
+
 
 
 

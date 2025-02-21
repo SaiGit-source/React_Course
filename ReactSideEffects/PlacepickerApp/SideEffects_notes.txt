@@ -1,0 +1,53 @@
+SideEffects & useEffect:
+
+Understanding Side Effects & useEffect()
+Effects & Dependencies
+When NOT to use useEffect()
+
+what are side effects?
+Tasks that need to be executed in the app but that dont impact the current component render cycle
+when tasks must be performed but dont directly impact the render cycle
+
+lets say we want to sort tourist places by distance from the current user location. loc.js calculates the distances (using latitudes and longitudes)
+user location can be obtained using the built-in brower function. navigator.geolocation.getCurrentPosition();
+
+  navigator.geolocation.getCurrentPosition((position)=>{
+    const sortedPlaces = sortPlacesByDistance(AVAILABLE_PLACES, 
+      position.coords.latitude, 
+      position.coords.longitude)
+  });
+
+  for example this code is a side-effect because we need the user location, that's not directly related to the task (main goal of the component function). Main goal of this component function is to return renderable jsx code. All other codes (like click listeners) except code to fetch user location so it is a side-effect.
+  it's not neccessarily a problem to have side-effect. 
+  how it could be the problem?
+    we got to show the sortedPlaces on the screen using <Places> component. So when the page loads initially, sortedPlaces is not available because fetching user location will take some time.
+    so we need state to manage available_places
+    once operation of fetching user locations is done, we can set available_places state
+    but this solution has a flaw because it will cause an infinite loop (calling state updating function tells React to re-execute the component function where the state belongs)
+    when the same component function re-executes, we fetch user location again and the loop goes infinite. this will crash the application.
+    Side effect used with state will cause this problem, thats why need userEffect() hook.
+    useEffect() hooks solves the problem by not re-executing the same component.
+	
+  Basically after the jsx code is returned, side effect function passed into useEffect() will be executed by React. React executes side effect function passed into useEffect() after Component function is executed
+
+Actually React only executes the side effect / useEffect() only once after the App component is done. However, if dependency function [] is omitted then side-effect function is executed after every App component render cycle
+
+
+
+
+
+    
+
+
+
+
+    
+
+
+
+
+
+
+
+
+

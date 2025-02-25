@@ -33,6 +33,15 @@ user location can be obtained using the built-in brower function. navigator.geol
 Actually React only executes the side effect / useEffect() only once after the App component is done. However, if dependency function [] is omitted then side-effect function is executed after every App component render cycle
 
 
+Not all SideEffects dont require the usage useEffect()
+
+using useEffect() unnecessarily is seen as a bad practice because useEffect() is an extra execution cycle after the App component cycle
+localStorage is used to persist the places selected by the user in the browser. here we are calling localStorage inside another function
+we cannot use useEffect() as well because useEffect() must be used directly at the root level of the component just like useState()
+also we need to store the places only when the user clicks the place not when the App component loads, unlike the Navigator code above. so this condition is different
+it will not cause an infinite loop even if we are updating a state value here
+
+
 
 
 

@@ -1,6 +1,8 @@
-import { useState } from "react"
+import { useCallback, useState } from "react"
 import QUESTIONS from '../questions.js'
 import quizCompleteImage from '../assets/quiz-complete.png'
+import QuestionTimer from "./QuestionTimer.jsx"
+
 
 // idea is to change questions when user answers them then store answers in useState()
 export default function Quiz(){
@@ -27,15 +29,28 @@ export default function Quiz(){
     shuffledAnswers.sort(()=>Math.random()-0.5) // return => negative number they will swap otherwise they will stay in the order they are. opposite to Java sort
 
 
-    function handleSelectAnswer(selectedAnswer){
+    const handleSelectAnswer = useCallback(function handleSelectAnswer(selectedAnswer){
         setUserAnswers((prevAnswers)=>{
             return [...prevAnswers, selectedAnswer]
         })
-    } // add selectedAnswer to the prevAnswers array
+    }, []) // add selectedAnswer to the prevAnswers array. [] empty because we are not using any State or Props in handleSelectAnswer func. State updating funvtions dont require any dependencies
+// 10 sec timer is 10000 milliseconds
+// handleSelectAnswer(null) -> timer has expired but no answer is selected by user this is for the timeout event
+// handleSelectAnswer(null) executes when timeout occurs, it changes 'userAnswers' state, which reloads App component, inturn calls QuestionTimer -> again timer is created
+// but when ()=>handleSelectAnswer(null) function is executed -> a new object is created in memory -> work around is: 'useCallback' hook ensure functions dont get re-created in memory unless there is a need for it 
+    const handleSkipAnswer = useCallback(
+        ()=>handleSelectAnswer(null), [handleSelectAnswer]
+    ) // handleSelectAnswer is the dependency
 
     return (
         <div id="quiz">
         <div id="question">
+            <QuestionTimer
+                key={activeQuestionIndex} 
+                // 'activeQuestionIndex' changes when question changes therefore re-loads QuestionTimer component
+                timeout={10000} 
+                onTimeOut={handleSkipAnswer}>
+                </QuestionTimer>
             <h2>{QUESTIONS[activeQuestionIndex].text}</h2>
             <ul id="answers">
                 {shuffledAnswers.map(answer => (

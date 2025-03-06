@@ -1,7 +1,7 @@
-import { useCallback, useState } from "react"
+import { useCallback, useRef, useState } from "react"
 import QUESTIONS from '../questions.js'
 import quizCompleteImage from '../assets/quiz-complete.png'
-import QuestionTimer from "./QuestionTimer.jsx"
+import Question from "./Question.jsx"
 
 
 // idea is to change questions when user answers them then store answers in useState()
@@ -10,6 +10,10 @@ export default function Quiz(){
     // it tells which question should be displayed to the user
     // however i dont need to keep track of the activeQuestionIndex if i store answers anyways. i can derive from the asnwers array
     const [userAnswers, setUserAnswers] = useState([])
+
+    // to delay moving to next question by 2 seconds, after user picks an answer
+    //const [answerState, setAnswerState] = useState('')
+
 
     // derived state from userAnswers for activeQuestionIndex
     const activeQuestionIndex = userAnswers.length
@@ -25,10 +29,6 @@ export default function Quiz(){
         )
     }
 
-    const shuffledAnswers = [...QUESTIONS[activeQuestionIndex].answers]
-    shuffledAnswers.sort(()=>Math.random()-0.5) // return => negative number they will swap otherwise they will stay in the order they are. opposite to Java sort
-
-
     const handleSelectAnswer = useCallback(function handleSelectAnswer(selectedAnswer){
         setUserAnswers((prevAnswers)=>{
             return [...prevAnswers, selectedAnswer]
@@ -38,29 +38,21 @@ export default function Quiz(){
 // handleSelectAnswer(null) -> timer has expired but no answer is selected by user this is for the timeout event
 // handleSelectAnswer(null) executes when timeout occurs, it changes 'userAnswers' state, which reloads App component, inturn calls QuestionTimer -> again timer is created
 // but when ()=>handleSelectAnswer(null) function is executed -> a new object is created in memory -> work around is: 'useCallback' hook ensure functions dont get re-created in memory unless there is a need for it 
+// note: this function handleSelectAnswer must be re-recreated whenever [activeQuestionIndex] changes, we dont want to use an outdated index
+
     const handleSkipAnswer = useCallback(
         ()=>handleSelectAnswer(null), [handleSelectAnswer]
     ) // handleSelectAnswer is the dependency
 
     return (
         <div id="quiz">
-        <div id="question">
-            <QuestionTimer
+            {/* key is a reserve word in React thats why we are using questionIndex*/}
+            <Question
                 key={activeQuestionIndex} 
-                // 'activeQuestionIndex' changes when question changes therefore re-loads QuestionTimer component
-                timeout={10000} 
-                onTimeOut={handleSkipAnswer}>
-                </QuestionTimer>
-            <h2>{QUESTIONS[activeQuestionIndex].text}</h2>
-            <ul id="answers">
-                {shuffledAnswers.map(answer => (
-                    <li key={answer} className="answer">
-                        <button onClick={()=>handleSelectAnswer(answer)}>{answer}</button>
-                    </li>
-                ))
-            }
-            </ul>
-        </div>
+                questionIndex={activeQuestionIndex}
+                onSelectAnswer={handleSelectAnswer}
+                onSkipAnswer={handleSkipAnswer}>
+                </Question>
         </div>
     )
 }

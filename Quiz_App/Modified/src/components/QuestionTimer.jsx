@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 
-export default function QuestionTimer({timeout, onTimeOut}){
+export default function QuestionTimer({timeout, onTimeOut, mode}){
     const [remainingTime, setRemainingTime] = useState(timeout)
 
     // also 'setTimeout' timer will be re-created each time this component re-executes and multuple timers will be there
@@ -39,9 +39,11 @@ export default function QuestionTimer({timeout, onTimeOut}){
     // 100 milliseconds would have lapsed in the meantime
 
 
-
-
     return (
-        <progress id="question-time" max={timeout} value={remainingTime} />
+        <progress 
+            id="question-time" 
+            max={timeout} 
+            value={remainingTime} 
+            className={mode}/>
     )
 }

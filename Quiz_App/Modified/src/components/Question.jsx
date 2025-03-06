@@ -34,13 +34,24 @@ export default function Question({questionIndex, onSelectAnswer, onSkipAnswer}){
         localAnswerState='answered'
     }
 
+    // update timeout if an answer was chosen
+    let timer = 10000
+    if (answer.selectedAnswer){
+        timer=1000
+    }
+
+    if (answer.isCorrect!==null){
+        timer=2000 // time to scroll to next question
+    }
+
     return (
             <div id="question">
                         <QuestionTimer
-
+                            key={timer} // we set key to destroy and re-create the timer
                             // 'activeQuestionIndex' changes when question changes therefore re-loads QuestionTimer component
-                            timeout={10000} 
-                            onTimeOut={onSkipAnswer}>
+                            timeout={timer} 
+                            onTimeOut={answer.selectedAnswer==='' ? onSkipAnswer : null}
+                            mode={localAnswerState}>
                             </QuestionTimer>
                         <h2>{QUESTIONS[questionIndex].text}</h2>
 

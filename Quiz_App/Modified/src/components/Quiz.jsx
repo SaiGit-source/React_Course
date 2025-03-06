@@ -1,7 +1,7 @@
 import { useCallback, useRef, useState } from "react"
 import QUESTIONS from '../questions.js'
-import quizCompleteImage from '../assets/quiz-complete.png'
 import Question from "./Question.jsx"
+import Summary from "./Summary.jsx"
 
 
 // idea is to change questions when user answers them then store answers in useState()
@@ -20,14 +20,6 @@ export default function Quiz(){
     const quizIsComplete = activeQuestionIndex===QUESTIONS.length
     // we cant exceed the number of questions we have otherwise it throws an error
 
-    if (quizIsComplete){
-        return (
-            <div id="summary">
-                <img src={quizCompleteImage} alt="Trophy icon"></img>
-                <h2>Quiz completed!</h2>
-            </div>
-        )
-    }
 
     const handleSelectAnswer = useCallback(function handleSelectAnswer(selectedAnswer){
         setUserAnswers((prevAnswers)=>{
@@ -41,8 +33,16 @@ export default function Quiz(){
 // note: this function handleSelectAnswer must be re-recreated whenever [activeQuestionIndex] changes, we dont want to use an outdated index
 
     const handleSkipAnswer = useCallback(
-        ()=>handleSelectAnswer(null), [handleSelectAnswer]
+        ()=>handleSelectAnswer(null), 
+        [handleSelectAnswer]
     ) // handleSelectAnswer is the dependency
+
+    if (quizIsComplete){
+        return (
+            <Summary userAnswers={userAnswers} />
+        )
+    }
+
 
     return (
         <div id="quiz">
@@ -52,7 +52,7 @@ export default function Quiz(){
                 questionIndex={activeQuestionIndex}
                 onSelectAnswer={handleSelectAnswer}
                 onSkipAnswer={handleSkipAnswer}>
-                </Question>
+            </Question>
         </div>
     )
 }

@@ -1,0 +1,45 @@
+Http Requests
+
+Some data must be managed centrally on a server so users can operate on that. 
+React App runs in the browser of your user and any data changes only happen locally (and are only stored locally). Different users from different parts of the world each have their own copy of their React project running in their browser but they cant interact with each other. They cant exchange data unless there is some central database that can be reached from all those locations around the world.
+
+Data Fetching and sending HTTP requests from inside React App. 
+How React Apps can get and send data from and to those central servers so that you are not limited to building React Apps with a local dummy data but Apps that are capable of communicating with a central server
+
+-> How to connect a Backend/Database
+-> Fetching data (download and use data in ReactApp)
+-> how to send data frmo ReactApp / how to store user-generated data
+
+A central server where multiple instances of the ReactApps could connect and share data across users
+if you are building an online store like Amazon, we want to make sure different users from different parts of the world can access the same data and also send data like placing orders
+so we need a central backend or database
+
+how do you connect ReactApp to such a database?
+You dont directly connect your ReactApp to database because of security issues.
+Say you are running React code in the browsers of your users, then they can view that code. and if that code contains database credentials/passwords for example, your database could get compromised because users can get those credentials and destroy data, insert incorrect data etc
+ Also the code that runs in a browser cannot access a centrally managed file system
+
+thats why we communicate with a Backend server, which acts like a middle man.
+
+Frontend (runs in the user's browser, users can theoretically view the entire code) -> Backend (runs on a separate (inaccessible) server, Backend code can interact with databases etc, Backend code is inaccessible by the users of your website)
+To connect Frontend to Backend, we use HTTP requests so from inside of React application, we send HTTP requests for some data
+We are able to send only certain HTTP requests that are accepted by Backend. Therefore, you can control what users can do and cant do
+
+With React, you build a client-side web application (it runs in the browser), interact with Backend with HTTP requests, Backend may interact with a database
+The webserver that exposes certain endpoints to which you can send requests & data (to receive data back)
+
+You should never try to connect to a database directly (-> credentials would be exposed)
+
+Thats why it is common to separate Frontend (React) & Backend (API). also they dont have to use the same programming language
+
+You can build fullstack ReactApps (blend Frontend and Backend) via NextJS or Remix
+
+Backend controls what kind of requests are allowed and blocks other unallowed requests
+
+Keep Backend running as well -> Backend folder -> npm install then node app.js
+
+
+
+
+
+

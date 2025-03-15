@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
 import Places from './Places.jsx';
+import Error from './Error.jsx';
 
 export default function AvailablePlaces({ onSelectPlace }) {
   const [availablePlaces, setAvailablePlaces] = useState([])
-  
+  const [isFetching, setIsFetching] = useState(false)
+  const [errorState, setError] = useState(undefined)
 
   // we start with empty [], we send HttpRequests to get data then update state
 
@@ -15,7 +17,7 @@ export default function AvailablePlaces({ onSelectPlace }) {
   // the fetch() method however has a flaw, will cause an infinite loop because we are updating the state, which will inturn reload the component -> solution: useEffect()
   // so now this function within useEffect will immediately execute after the component is executed only if the dependency in the [] changed
   // since dependency [] is empty, useEffect will execute only once when the component is first executed and after that it wont get executed and we wont enter an infinite loop
-  useEffect(() => {
+  /*useEffect(() => {
   fetch('http://localhost:3000/places').then((response)=>{
     return response.json()
   }).then((resData)=>{
@@ -23,16 +25,49 @@ export default function AvailablePlaces({ onSelectPlace }) {
     // Available places
     setAvailablePlaces(resData.places)
   }) 
-}, [])
+}, []) */
   // other way is await keyword to access response but will only work with async
   // const response = await fetch('http://localhost:3000/places')
 
+  // instead of above code we are going to use await
+  useEffect(() => {
+    
+    async function fetchPlaces() {
+      setIsFetching(true)
 
+      try {
+        const response = await fetch('http://localhost:3000/places')
+        const resData = await response.json()
+
+        if (!response.ok) {
+          // handling errors from backend
+          // if true 200, 300 status
+          // if false, 400, 500 status code
+          throw new Error('Failed to fetch places')
+        }
+        setAvailablePlaces(resData.places)
+    } catch (error){
+      setError({message: 
+                  error.message || 'Could not fetch places, please try again later!'})
+      // || 'Could not fetch' is the fallback message
+    }
+
+      setIsFetching(false)
+    }
+
+    fetchPlaces()
+  }, [])
+
+  if (errorState!==undefined){
+    return <Error title="An error occurred!" message={errorState.message}></Error>
+  }
 
   return (
     <Places
       title="Available Places"
       places={availablePlaces}
+      isLoading={isFetching}
+      loadingText="Fetching place data..."
       fallbackText="No places available."
       onSelectPlace={onSelectPlace}
     />

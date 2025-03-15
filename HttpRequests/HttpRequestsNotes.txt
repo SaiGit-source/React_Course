@@ -38,7 +38,12 @@ Backend controls what kind of requests are allowed and blocks other unallowed re
 
 Keep Backend running as well -> Backend folder -> npm install then node app.js
 
+Dont use useEffect(() => {
+    await fetch()
+})
 
+
+Right click -> console tab -> Network -> NoThrottling -> Slow 4G. it loads page slowly there if it takes some time for the images to load, so we need a fallback logic
 
 
 

@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import Places from './Places.jsx';
 import Error from './Error.jsx';
+import { sortPlacesByDistance } from '../loc.js';
+import { fetchAvailablePlaces } from '../http.js';
 
 export default function AvailablePlaces({ onSelectPlace }) {
   const [availablePlaces, setAvailablePlaces] = useState([])
@@ -36,23 +38,26 @@ export default function AvailablePlaces({ onSelectPlace }) {
       setIsFetching(true)
 
       try {
-        const response = await fetch('http://localhost:3000/places')
-        const resData = await response.json()
+        const places = await fetchAvailablePlaces()
+        // we need to find the user current location before we setAvailablePlaces
+        // navigator doesn't return promise so we cant use await
+        navigator.geolocation.getCurrentPosition((position)=>{
+          const sortedPlaces = sortPlacesByDistance(places, 
+            position.coords.latitude, 
+            position.coords.longitude)
+            setAvailablePlaces(sortedPlaces)
+            setIsFetching(false) // we cant use await, if navigator takes time to fetch user current location, then setIsFetching(false) will not wait so we moved it inside this function
+        })
+        // setAvailablePlaces(resData.places)
 
-        if (!response.ok) {
-          // handling errors from backend
-          // if true 200, 300 status
-          // if false, 400, 500 status code
-          throw new Error('Failed to fetch places')
-        }
-        setAvailablePlaces(resData.places)
     } catch (error){
       setError({message: 
                   error.message || 'Could not fetch places, please try again later!'})
       // || 'Could not fetch' is the fallback message
+      setIsFetching(false)
+
     }
 
-      setIsFetching(false)
     }
 
     fetchPlaces()

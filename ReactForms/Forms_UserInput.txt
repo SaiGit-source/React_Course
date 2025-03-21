@@ -1,0 +1,62 @@
+Forms_UserInput intro
+
+What's difficult about Forms?
+
+Handling Form Submission & Validating User input
+
+Using Built-in Form features
+
+Building Custom solutions
+
+What's a Form? 
+it is a collection of input fields that are wrapped by the built-in <form> HTML element.
+
+What's so difficult? 
+Forms are about two main things ---> you want to handle submission (Form Submission) and you want to extract values entered by the user and you also want to validate the values provided by user (Input Validation). 
+Show validation errors to user if some incorrect data is entered
+
+Form Submission ---> 
+Handling submission is relatively easy, 
+Entered values can be managed via State by setting up two-way binding, 
+Alternatively they can be extracted via Refs, Or via FormData and native browser features (extract user input data via FormData object) 
+
+Extracting data is relatively simple, only Validation part can be bit tricky
+
+Input Validation --->
+Providing a good user experience is tricky
+You can validate on every user keystroke but errors may be shown too early
+Therefore, alternatively you could validate whenever the user is done typing into an input field and that field loses focus
+in this, one potential problem is, errors may be showing up too long ---> you can validate on lost focus but errors may be showing up too long
+You could also validate upon Form Submission, but depending on your App's requirements and user experience you want to offer but again in this case, you might be showing error messages too 
+
+you got to pick the best solution for your App and users and implement that solution you want to good
+
+Default browser behavior for butttons within <form> element is those 'buttons' will 'submit' the form.
+Technically what it means that an HTTP request (with entered form data) is created and is sent to the server that's serving the website
+in typical Full stack applications, Form submissions should be sent back to server where they can be handled
+
+<button className="button button-flat">Reset</button> in form element, 'Reset' button also will generate requests and send those requests to the server by default
+There is no code on the backend server currently to deal with the form submission. Therefore, the default behavior is a problem.
+How do we prevent the default behavior of this form submitting?
+One way of preventing is, adding 'type' prop to button
+default type is the 'submit' type within Form HTML element
+Second way
+<form onSubmit={handleSubmit}> {/* to prevent default behavior of buttons, which will create an HTTP request */}
+
+in the button onClick() function
+    event.preventDefault() // it prevents the default browser behavior, which would be to generate and send HTTP requests
+
+Note: two ways to handle form input values -> useState() and useRef() both shown in Login.jsx
+
+new FormData() // built into browser --> FormData() makes it easy to get hold of different form values
+
+for FormData() tow work: all Input including Select fields must have the "name=" field in HTML
+<select id="role" name="role">
+
+const fdata = new FormData(event.target) // built into browser --> FormData() makes it easy to get hold of different form values
+fdata.get('email') // get value of input field that has the name="email"
+
+const inputEmail = fdata.get('email') // get value of input field that has the name="email"
+other option to get values
+Object.fromEntries(fdata.entries())
+

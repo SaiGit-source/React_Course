@@ -8,6 +8,7 @@ export default function Login() {
   // got to connect Refs manually step-by-step
   const email = useRef() // setting ref() establishes connnection between HTML element ref={email} and this ref variable
   const passwd = useRef()
+  const [emailIsInvalid, setEmailIsInvalid] = useState(false)
   
   function handleSubmit(event) {
     event.preventDefault() // it prevents the default browser behavior, which would be to generate and send HTTP requests
@@ -15,6 +16,22 @@ export default function Login() {
     const inputEmail = email.current.value
     const inputPassword = passwd.current.value
     console.log(inputEmail, inputPassword)
+
+    // to reset input --> another way of clearing input fields
+    // event.target.reset()
+    // Or
+    // email.current.value = ''
+
+    const emailIsValid = inputEmail.includes('@')
+
+    if (!emailIsValid){
+      setEmailIsInvalid(true)
+      return // returns function here so next line is not executed
+    }
+
+    setEmailIsInvalid(false)
+
+    console.log('Sending HTTP request...')
   }
 
   return (
@@ -31,6 +48,7 @@ export default function Login() {
             name="email"
             ref={email} 
           />
+            <div className="control-error">{emailIsInvalid && <p>Please enter a valid email address</p>}</div>
         </div>
 
         <div className="control no-margin">

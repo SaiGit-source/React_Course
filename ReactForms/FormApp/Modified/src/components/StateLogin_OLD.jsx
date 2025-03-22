@@ -29,11 +29,6 @@ export default function Login() {
   
   function handleSubmit(event) {
     event.preventDefault() // it prevents the default browser behavior, which would be to generate and send HTTP requests
-    
-    if(emailIsInvalid || passwdIsInvalid){
-      return
-    }
-
     console.log('Submitted!')
 //    console.log('User email: '+ enteredEmail)
     console.log(inputValues)

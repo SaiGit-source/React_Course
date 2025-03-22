@@ -60,3 +60,31 @@ const inputEmail = fdata.get('email') // get value of input field that has the n
 other option to get values
 Object.fromEntries(fdata.entries())
 
+How to reset form?
+button type="reset"
+Or event.target.reset()
+
+To validate the input: 
+const emailIsInvald=!inputValues.email.incudes('@') ---> Example of showing error too early
+when blur event is fired, this input field loses focus  ----> use onBlur, it will display error message only if i lose focus, not too early
+
+Good pattern for validate
+Combining validation on every keystroke with validation on lost focus and resetting focus state can be a good pattern for validating input
+i reset Blur to false when i am typing
+
+other option is validate upon form submit is also ok. When you click the submit button, if emailIsValid=false then we set emailIsInvalid to true.
+if emailIsInvalid is true, we display the Error message
+
+
+you can also use required prop
+          <input id="email" type="email" name="email" required/>
+          minLength={6}
+
+we are not limited to only built-in validation, we can also write custom error logic for example to check passwords match
+
+we could also use Third-party library
+
+search for React form libraries
+https://react-hook-form.com/
+
+
